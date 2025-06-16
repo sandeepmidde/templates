@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="flash-messages">
+                <ul>
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    {% endwith %}
+    <form method="post">
+        {{ form.csrf_token }}
+        <fieldset>
+            <legend>Login</legend>
+            <label for="contact_id">Contact ID:</label>
+            <input type="text" id="contact_id" name="contact_id" value="{{ form.contact_id.data or '' }}">
+            {% if form.contact_id.errors %}
+                <ul class="errors">
+                    {% for err in form.contact_id.errors %}
+                        <li>{{ err }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            <label for="access_key">Access Key:</label>
+            <input type="password" id="access_key" name="access_key" value="{{ form.access_key.data or '' }}">
+            {% if form.access_key.errors %}
+                <ul class="errors">
+                    {% for err in form.access_key.errors %}
+                        <li>{{ err }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            <button type="submit">Login</button>
+        </fieldset>
+    </form>
+</body>
+</html>

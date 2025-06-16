@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+</head>
+<body>
+    {% if message %}
+        <div class="message">{{ message | e }}</div>
+    {% endif %}
+    <form method="post">
+        {{ form.csrf_token }}
+        <fieldset>
+            <legend>Register</legend>
+            <label for="contact_id">Contact ID:</label>
+            <input type="text" id="contact_id" name="contact_id" value="{{ form.contact_id.data or '' }}">
+            {% if form.contact_id.errors %}
+                <ul class="errors">
+                    {% for error in form.contact_id.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            <label for="access_key">Access Key:</label>
+            <input type="password" id="access_key" name="access_key" value="{{ form.access_key.data or '' }}">
+            {% if form.access_key.errors %}
+                <ul class="errors">
+                    {% for error in form.access_key.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            <button type="submit">Register</button>
+        </fieldset>
+    </form>
+</body>
+</html>

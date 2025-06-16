@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Task</title>
+</head>
+<body>
+    <h1>{{ 'Edit Task' if form.name.data else 'Add Task' }}</h1>
+    <form method="post" enctype="multipart/form-data">
+        {{ form.csrf_token }}
+        <fieldset>
+            <legend>Task Details</legend>
+            <label for="name">Task Name:</label>
+            {{ form.name(id="name") }}
+            {% if form.name.errors %}
+                <ul class="errors">
+                    {% for error in form.name.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            <label for="completed">Completed:</label>
+            {{ form.completed(id="completed") }}
+            {% if form.completed.errors %}
+                <ul class="errors">
+                    {% for error in form.completed.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            <label for="tags">Tags:</label>
+            <input type="text" id="tags" name="tags" pattern="(#\w+\s*)+" placeholder="#urgent #work" title="Enter tags like #urgent #work">
+            <small>Use hashtags, e.g., #urgent #work</small>
+            {% if form.tags and form.tags.errors %}
+                <ul class="errors">
+                    {% for error in form.tags.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            <label for="attachment">Attachment:</label>
+            <input type="file" id="attachment" name="attachment">
+            {% if form.attachment.errors %}
+                <ul class="errors">
+                    {% for error in form.attachment.errors %}
+                        <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            <button type="submit">Save</button>
+        </fieldset>
+    </form>
+</body>
+</html>
